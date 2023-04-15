@@ -39,7 +39,23 @@ void pins_init() {
     // set as output mode
     io_conf.mode = GPIO_MODE_OUTPUT;
     // bit mask of the pins that you want to set
-    io_conf.pin_bit_mask = ((1 << SWCLK_PIN) | (1 << SWDIO_PIN));
+    io_conf.pin_bit_mask = (
+        (1 << GPIO_NUM_5) |
+        (1 << GPIO_NUM_6) | 
+        (1 << GPIO_NUM_7) |
+        (1 << GPIO_NUM_8) |
+        (1 << GPIO_NUM_9) |
+        (1 << GPIO_NUM_16) |
+        (1 << GPIO_NUM_17) |
+        (1 << GPIO_NUM_18) |
+        (1ULL << GPIO_NUM_35) |
+        (1ULL << GPIO_NUM_36) |
+        (1ULL << GPIO_NUM_37) |
+        (1ULL << GPIO_NUM_38) |
+        (1ULL << GPIO_NUM_39) |
+        (1ULL << GPIO_NUM_40) |
+        (1ULL << GPIO_NUM_41)
+     );
     // disable pull-down mode
     io_conf.pull_down_en = 0;
     // disable pull-up mode
@@ -50,7 +66,7 @@ void pins_init() {
 
 void app_main(void) {
     // Software UART logging at pin 7, 57600 baud
-    soft_uart_log_init(7, 57600);
+    soft_uart_log_init(18, 57600);
 
     ESP_LOGI(TAG, "start");
 

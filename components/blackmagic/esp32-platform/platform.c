@@ -13,57 +13,57 @@ uint32_t swd_delay_cnt = 0;
 // static const char* TAG = "gdb-platform";
 
 void __attribute__((always_inline)) platform_swdio_mode_float(void) {
-    // gpio_set_direction(SWDIO_PIN, GPIO_MODE_INPUT);
-    // gpio_set_pull_mode(SWDIO_PIN, GPIO_FLOATING);
+    gpio_set_direction(SWDIO_PIN, GPIO_MODE_INPUT);
+    gpio_set_pull_mode(SWDIO_PIN, GPIO_FLOATING);
 
     // Faster variant
-    gpio_ll_output_disable(&GPIO, SWDIO_PIN);
-    gpio_ll_input_enable(&GPIO, SWDIO_PIN);
+    // gpio_ll_output_disable(&GPIO, SWDIO_PIN);
+    // gpio_ll_input_enable(&GPIO, SWDIO_PIN);
 }
 
 void __attribute__((always_inline)) platform_swdio_mode_drive(void) {
-    // gpio_set_direction(SWDIO_PIN, GPIO_MODE_OUTPUT);
+    gpio_set_direction(SWDIO_PIN, GPIO_MODE_OUTPUT);
 
     // Faster variant
     // Supports only gpio less than 32
-    GPIO.enable_w1ts = (0x1 << SWDIO_PIN);
+    // GPIO.enable_w1ts = (1ULL << SWDIO_PIN);
     esp_rom_gpio_connect_out_signal(SWDIO_PIN, SIG_GPIO_OUT_IDX, false, false);
 }
 
 void __attribute__((always_inline)) platform_gpio_set_level(int32_t gpio_num, uint32_t value) {
-    // gpio_set_level(gpio_num, value);
+    gpio_set_level(gpio_num, value);
 
     // Faster variant
     // Supports only gpio less than 32
-    if(value) {
-        GPIO.out_w1ts = (1 << gpio_num);
-    } else {
-        GPIO.out_w1tc = (1 << gpio_num);
-    }
+    // if(value) {
+    //     GPIO.out_w1ts = (1ULL << gpio_num);
+    // } else {
+    //     GPIO.out_w1tc = (1ULL << gpio_num);
+    // }
 }
 
 void __attribute__((always_inline)) platform_gpio_set(int32_t gpio_num) {
-    // platform_gpio_set_level(gpio_num, 1);
+    platform_gpio_set_level(gpio_num, 1);
 
     // Faster variant
     // Supports only gpio less than 32
-    GPIO.out_w1ts = (1 << gpio_num);
+    // GPIO.out_w1ts = (1ULL << gpio_num);
 }
 
 void __attribute__((always_inline)) platform_gpio_clear(int32_t gpio_num) {
-    // platform_gpio_set_level(gpio_num, 0);
+    platform_gpio_set_level(gpio_num, 0);
 
     // faster variant
     // supports only gpio less than 32
-    GPIO.out_w1tc = (1 << gpio_num);
+    // GPIO.out_w1tc = (1ULL << gpio_num);
 }
 
 int __attribute__((always_inline)) platform_gpio_get_level(int32_t gpio_num) {
-    // int level = gpio_get_level(gpio_num);
+    int level = gpio_get_level(gpio_num);
 
     // Faster variant
     // Supports only gpio less than 32
-    int level = (GPIO.in >> gpio_num) & 0x1;
+    // int level = (GPIO.in >> gpio_num) & 1ULL;
     return level;
 }
 

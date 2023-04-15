@@ -1,7 +1,7 @@
 #include <driver/i2c.h>
 
-static gpio_num_t i2c_gpio_sda = 18;
-static gpio_num_t i2c_gpio_scl = 17;
+static gpio_num_t i2c_gpio_sda = 7;
+static gpio_num_t i2c_gpio_scl = 6;
 static gpio_num_t i2c_pull_enable = 3;
 static i2c_port_t i2c_port = I2C_NUM_0;
 static uint32_t i2c_frequency = 100000;

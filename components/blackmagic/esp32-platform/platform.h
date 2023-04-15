@@ -29,22 +29,22 @@ void led_set_blue(uint8_t value);
     do {               \
     } while(0)
 
-#define TMS_PIN (-1)
-#define TDI_PIN (-1)
-#define TDO_PIN (-1)
-#define TCK_PIN (-1)
+#define TMS_PIN (41)
+#define TDI_PIN (37)
+#define TDO_PIN (35)
+#define TCK_PIN (36)
 
 #undef PLATFORM_HAS_TRACESWO
-#define TRACESWO_PIN 18
+#define TRACESWO_PIN 8
 
 // ON ESP32 we dont have the PORTS, this is dummy value until code is corrected
 #define SWCLK_PORT (0)
-#define SWCLK_PIN (1)
-#define SWDIO_PIN (2)
+#define SWCLK_PIN (40)
+#define SWDIO_PIN (41)
 
-#if SWDIO_PIN >= 32 || SWCLK_PIN >= 32
-#error To support pins greater than 31, change the platform_gpio functions
-#endif
+// #if SWDIO_PIN >= 32 || SWCLK_PIN >= 32
+// #error To support pins greater than 31, change the platform_gpio functions
+// #endif
 
 #define gpio_set_val(port, pin, value)       \
     do {                                     \
